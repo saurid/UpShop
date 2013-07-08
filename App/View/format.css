@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font: 0.9em/1.5 arial, genova, sans-serif;
+    color: #333;
+}
+small {
+    color: #aaa;
+}
+label  {
+    margin-top: 1em;
+    display: block;
+}
+input, textarea, select {
+    color: #666;
+    border: 1px solid #ddd;
+}
+td {
+    vertical-align: top;
+    padding-right: 1em;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+a {
+    color: #4a54a2;
+    text-decoration: none;
+}
+a:hover {
+    color: #d00;
+    text-decoration: underline;
+}
+.container {
+    margin: 0 auto;
+    width: 900px;
+    text-align: left;
+}
+#header {
+    height: 80px;
+    background-color: #333;
+}
+#header a {
+    color: #fff;
+}
+#header h1 {
+    float: left;
+}
+#header h1 a {
+    display: block;
+    background: url('../View/img/upshop.png') no-repeat;
+    height: 50px;
+    padding-left: 180px;    color: #fff;
+    text-decoration: none;
+}
+#divider {
+    height: 15px;
+    margin-bottom: 20px;
+    background-color: #ffca14;
+}
+#menu  {
+    float: left;
+    width: 100px;
+    padding: 20px;
+    background-color:#eee;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+#menu  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#menu  a {
+    color: #222;
+    text-decoration: none;
+}
+#menu  a:hover {
+    color: #d00;
+    text-decoration: underline;
+}
+#body {
+    width: 720px;
+    float: right;
+    margin-bottom: 3em;
+}
+#cart_small {
+    float: right;
+    padding: 20px 0 0 0;
+    text-align: right;
+}
+#cart_small p {
+    margin: 0;
+}
+#cart p {
+    margin: 0;
+}
+#items img {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+#item img {
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin: 0 0 20px 20px;
+    float: right;
+}
+.item-name {
+    width: 30%;
+}
+.pricetag span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #4a54a2;
+}
+.orderbutton input {
+    margin-top: 1em;
+    font-size: 1.5em;
+    color: #4a54a2;
+}
+.UpMvc_Error {
+    display: block;
+    background: url('../View/img/error.png') no-repeat center left;
+    padding-left: 20px;
+    color: #e00;
+    font-weight: bold;
+}
