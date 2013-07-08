@@ -33,9 +33,9 @@ Installation
 * Öppna filen `App/config.php` och redigera variablerna med prefix `db_`
 till dina egna uppgifter för värd, användarnamn, lösenord och data-
 basnamn.
-* Surfa till http://localhost/UpShop/ för att se exempelshoppen
-* Surfa till http://localhost/UpShop/Admin för att komma till adminsidorna
-* Logga in med E-postadress: admin@admin.se och Lösenord: admin
+* Surfa till `http://localhost/UpShop/` för att se exempelshoppen
+* Surfa till `http://localhost/UpShop/Admin` för att komma till adminsidorna
+* Logga in med E-postadress: `admin@admin.se` och Lösenord: `admin`
 
 Up Shop är utvecklad av (kontaktinformation)
 -------------------------------------------
