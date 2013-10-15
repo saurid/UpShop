@@ -17,7 +17,7 @@ namespace UpMvc;
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.3.1
+ * @version 2013.10.1
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -28,6 +28,12 @@ class View
      * @access private
      */
     private $vars = array();
+
+    /**
+     * @var string Sökväg för vyer
+     * @access private
+     */
+    private $path = '';
     
     /**
      * Sätt variabler/värden för att användas i vyer
@@ -36,8 +42,8 @@ class View
      * mallarna. Andra argumentet är själva innehållet, vilket kan vara en
      * enkel sträng/siffra, ett array eller varför inte ett helt objekt.
      *
-     * @param string $key   Variabelnamn (nyckel)
-     * @param mixed  $value Värde
+     * @param  string $key   Variabelnamn (nyckel)
+     * @param  mixed  $value Värde
      * @throws \InvalidArgumentException Om $key inte är ett giltigt variabelnamn
      * @return UpMvc\View
      */
@@ -50,6 +56,24 @@ class View
 
         return $this;
     }
+
+    /**
+     * Sätt standardsökväg för vyer
+     *
+     * Strängen, med ett avslutande snedstreck, läggs före sökvägen när
+     * vyerna rendreras. Lämnas det tomt anges fullständig sökväg när metoden
+     * render() kallas. 
+     *
+     * @param  string $path Sökväg till vyer
+     * @throws \InvalidArgumentException Om $key inte är ett giltigt variabelnamn
+     * @return UpMvc\View
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
     
     /**
      * Rendrerar en vy
@@ -58,13 +82,18 @@ class View
      * set-metoden och ersätter variablerna med sitt respektive innehåll. Det
      * rendrerade innehållet returneras som en sträng.
      *
-     * @param string $template Mallnamn
+     * @param  string $template Namn för vy
+     * @param  string $absolute Använd absolut sökväg
      * @throws \InvalidArgumentException Om argumentet inte är en sträng
      * @throws \DomainException Om vy-filen inte kan hittas
      * @return string Rendrerad vy
      */
-    public function render($template)
+    public function render($template, $absolute = false)
     {
+        if (!$absolute) {
+            $template = $this->path . $template;
+        }
+
         if (!is_string($template)) {
             throw new \InvalidArgumentException(sprintf('%s: Argumentet måste vara en giltig sökväg till en mall', __METHOD__));
         }

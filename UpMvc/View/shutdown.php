@@ -24,7 +24,6 @@ use UpMvc;
 </head>
 <body>
 
-
 <article>
     <header>
         <img src="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/img/UpMVC.png" height="50" alt="Up MVC" />

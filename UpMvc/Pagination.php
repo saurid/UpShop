@@ -14,7 +14,7 @@ namespace UpMvc;
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.3.1
+ * @version 2013.10.1
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -57,9 +57,9 @@ class Pagination
             throw new \InvalidArgumentException(sprintf('%s: Tredje argumentet (antal per sida) måste vara ett heltal', __METHOD__));
         }
 
-        $this->total    = $total;
-        $this->current  = $current;
-        $this->per      = $per;
+        $this->total   = $total;
+        $this->current = $current;
+        $this->per     = $per;
     }
 
     /**
@@ -140,7 +140,7 @@ class Pagination
         $c = Container::get();
         $c->view->set('pagination', $this);
 
-        return $c->view->render('UpMvc/View/paginationnav.php');
+        return $c->view->render('UpMvc/View/paginationnav.php', true);
     }
 
     /**

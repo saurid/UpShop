@@ -13,7 +13,7 @@ use UpMvc;
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.2.8
+ * @version 2013.10.1
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -25,17 +25,17 @@ class Exception
      */
     public function index(\Exception $e)
     {
-        $c = UpMvc\Container::get();
-
         $trace = $e->getTrace();
         foreach ($trace as $key => $stack) {
             $trace[$key]['args'] = array_map('gettype', $trace[$key]['args']);
         }
-        echo $c->view
+        
+        $view = new UpMvc\View();
+        echo $view
             ->set('title', 'Up MVC-fel!')
             ->set('exception', $e)
             ->set('router', new UpMvc\RouteResolver())
             ->set('trace', $trace)
-            ->render('UpMvc/View/exception.php');
+            ->render('UpMvc/View/exception.php', true);
     }
 }
