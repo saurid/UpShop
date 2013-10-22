@@ -6,12 +6,14 @@
 
 namespace UpMvc;
 
+use UpMvc\Container as Up;
+
 /**
  * Skapa kompletta HTML-formulär
  * 
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.4.1
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  * 
@@ -65,7 +67,6 @@ class Form
         }
         $this->method = $method;
         $this->action = ($action) ? $action : $_SERVER['PHP_SELF'];
-        $this->view   = Container::get()->view;
     }
     
     /**
@@ -151,8 +152,8 @@ class Form
      */
     public function render()
     {
-        $this->view->set('form', $this);
+        Up::view()->set('form', $this);
         
-        return $this->view->render('UpMvc/Form/View/base.php');
+        return Up::view()->render('UpMvc/Form/View/base.php');
     }
 }

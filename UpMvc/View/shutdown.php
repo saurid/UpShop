@@ -4,7 +4,7 @@
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.2.6
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -12,6 +12,7 @@
 namespace UpMvc\View;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 ?>
 <!DOCTYPE HTML>
@@ -19,14 +20,14 @@ use UpMvc;
 <head>
     <title>Up MVC/PHP har upptäckt ett fel</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/css/format.css" media="all" />
-    <link type="text/css" rel="stylesheet" href="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/css/printformat.css" media="print" />
+    <link type="text/css" rel="stylesheet" href="<?php echo Up::site_path() ?>/UpMvc/View/css/format.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="<?php echo Up::site_path() ?>/UpMvc/View/css/printformat.css" media="print" />
 </head>
 <body>
 
 <article>
     <header>
-        <img src="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/img/UpMVC.png" height="50" alt="Up MVC" />
+        <img src="<?php echo Up::site_path() ?>/UpMvc/View/img/UpMVC.png" height="50" alt="Up MVC" />
     </header>
 
     <h2>Up MVC/PHP har upptäckt ett fel</h2>

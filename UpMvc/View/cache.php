@@ -4,7 +4,7 @@
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.2.10
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -12,6 +12,7 @@
 namespace UpMvc\View;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 ?>
 

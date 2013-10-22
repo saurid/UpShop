@@ -12,6 +12,7 @@
 namespace UpMvc\View;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 ?>
 <!DOCTYPE HTML>
@@ -19,37 +20,37 @@ use UpMvc;
 <head>
     <title><?php echo $title ?></title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<?php echo $site_path ?>/UpMvc/View/css/format.css" media="all" />
-    <link rel="stylesheet" href="<?php echo $site_path ?>/UpMvc/View/css/printformat.css" media="print" />
+    <link rel="stylesheet" href="<?php echo Up::site_path() ?>/UpMvc/View/css/format.css" media="all" />
+    <link rel="stylesheet" href="<?php echo Up::site_path() ?>/UpMvc/View/css/printformat.css" media="print" />
 </head>
 <body>
 
 <nav>
     <ul>
         <li><h2>om up mvc</h2></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/inledning">Inledning</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/filstruktur">Filstruktur</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/inledning">Inledning</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/filstruktur">Filstruktur</a></li>
     </ul>
     <ul>
         <li><h2>ramverkets lager</h2></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/controllers">Controllers / Actions</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/view">Views</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/model">Models</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/controllers">Controllers / Actions</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/view">Views</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/model">Models</a></li>
     </ul>
     <ul>
         <li><h2>övrigt</h2></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/container">Servicecontainern</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/moduler">Moduler</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/request">Requestobjektet</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/cache">Cachning</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/siduppdelning">Siduppdelning / Pagination</a></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/rattigheter">Rättigheter</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/container">Servicecontainern</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/moduler">Moduler</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/request">Requestobjektet</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/cache">Cachning</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/siduppdelning">Siduppdelning / Pagination</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/rattigheter">Rättigheter</a></li>
     </ul>
     <ul>
         <li><h2>detaljerat</h2></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/Manual/visa/detaljer">UML-diagram och tidslinje</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa/detaljer">UML-diagram och tidslinje</a></li>
         <li><h2>under utveckling</h2></li>
-        <li><a href="<?php echo $site_path ?>/UpMvc/WebForm">Webbformulär</a></li>
+        <li><a href="<?php echo Up::site_path() ?>/UpMvc/WebForm">Webbformulär</a></li>
     </ul>
 
     <br />
@@ -57,8 +58,8 @@ use UpMvc;
 
 <article>
     <header>
-        <a href="<?php echo $site_path ?>/UpMvc/Manual/visa">
-            <img src="<?php echo $site_path ?>/UpMvc/View/img/UpMVC.png" width="230" height="99" alt="<?php echo $title ?>" />
+        <a href="<?php echo Up::site_path() ?>/UpMvc/Manual/visa">
+            <img src="<?php echo Up::site_path() ?>/UpMvc/View/img/UpMVC.png" width="230" height="99" alt="<?php echo $title ?>" />
         </a>
         <h2>dokumentation</h2>
     </header>

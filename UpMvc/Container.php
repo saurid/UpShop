@@ -16,7 +16,7 @@ namespace UpMvc;
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.3.1
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -55,24 +55,62 @@ class Container
     }
     
     /**
-     * Lagra egenskap i containern
+     * Lagra egenskap i containern med den magiska metoden __set
+     * Vidarebebodrar till set() för logiken.
      * 
+     * @param string $key   Nyckel
+     * @param mixed  $value Värde
+     */
+    public function __set($key, $value)
+    {
+        self::set($key, $value);
+    }
+
+    /**
+     * Lagra egenskap i containern med statiskt anrop
+     *
+     * @static
      * @param string $key   Nyckel
      * @param mixed  $value Värde
      * @throws \InvalidArgumentException Om nyckeln inte är ett giltigt variabelnamn
      */
-    public function __set($key, $value)
+    public static function set($key, $value)
     {
         if (!preg_match('{^[a-zA-Z_\x7f-\xff][a-zA-Z0-9\x7f-\xff]}', $key)) {
             throw new \InvalidArgumentException(sprintf('%s: Första argumentet måste vara ett giltigt variabelnamn', __METHOD__));
         }
-        $this->data[$key] = $value;
+        self::get()->data[$key] = $value;
     }
-    
+
+    /**
+     * Returnera en egenskap med den magiska metoden __get
+     * Vidarebebodrar till fetch() för logiken.
+     * 
+     * @param string $key Nyckel
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        return $this->fetch($key);
+    }
+
+    /**
+     * Returnera en egenskap med den magiska metoden __callStatic
+     * Anropas statiskt och Vidarebebodrar till fetch() för logiken.
+     *
+     * @static
+     * @param string $key  Nyckel
+     * @param string $args Används ej (ännu), men krävs av __callStatic()
+     * @return mixed
+     */
+    public static function __callStatic($key, $args = null)
+    {
+        return self::get()->fetch($key);
+    }
+
     /**
      * Returnera en egenskap
      *
-     * Använder den magiska metoden __get för att returnera egenskaper.
      * Om egenskapen inte redan finns skapas ett objekt upp med namnet i
      * argumentet.
      *
@@ -80,11 +118,12 @@ class Container
      * innan den returneras. Closures används för att konfigurera hur objekt
      * skapas upp i systemet (se config.php).
      *
+     * @access protected
      * @param string $key Nyckel
      * @throws \OutOfBoundsException Om variablen inte finns, eller inte kan instansieras
      * @return mixed
      */
-    public function __get($key)
+    protected function fetch($key)
     {
         // Om nyckeln inte finns, försök skapa ett objekt
         if (!isset($this->data[$key])) {
@@ -106,6 +145,7 @@ class Container
     /**
      * Tillåt inte instansiering (skapa ett objekt) utifrån med new
      * genom att sätta construct som privat
+     * 
      * @access private
      */
     private function __construct()
@@ -115,6 +155,7 @@ class Container
     /**
      * Tillåt inte kloning av objektet genom att sätta
      * clone till privat
+     * 
      * @access private
      */
     private function __clone()

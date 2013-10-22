@@ -7,6 +7,7 @@
 namespace UpMvc\Controller;
 
 use UpMvc;
+use UpMvc\Container as Up;
 use UpMvc\Form as Form;
 use UpMvc\Validation as Validation;
 
@@ -15,7 +16,7 @@ use UpMvc\Validation as Validation;
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.4.3
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -26,10 +27,8 @@ class Webform
      */
     public function index()
     {
-        $c = UpMvc\Container::get();
-
         // Skapa ett webb-formulär
-        $form = new Form('post', $c->site_path.'/UpMvc/WebForm/');
+        $form = new Form('post', Up::site_path().'/UpMvc/WebForm/');
         $form->setId('myform');
         
         // Sätt upp formulärets fält
@@ -59,7 +58,7 @@ class Webform
              ->setError('Du måste fylla i ett lösenord (minst 4 tecken)');
         
         $form->password2
-             ->setRule(new Validation\Same($c->request->get('password'), $c->request->get('password2')))
+             ->setRule(new Validation\Same(Up::request()->get('password'), Up::request()->get('password2')))
              ->setError('Lösenorden är inte lika');
         
         $form->message
@@ -83,9 +82,9 @@ class Webform
              ->setError('Du måste välja vad du föredrar');
         
         // Fyll view med variabler och data och rendrera
-        echo $c->view
+        echo Up::view()
                ->set('title', 'Exempelformulär - Up MVC')
-               ->set('site_path', $c->site_path)
+               ->set('site_path', Up::site_path())
                ->set('content', $form->render())
                ->render('UpMvc/View/layout.php');
     }

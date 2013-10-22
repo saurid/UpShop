@@ -7,6 +7,7 @@
 namespace UpMvc\Form;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 /**
  * Basklass till formulärfält
@@ -17,7 +18,7 @@ use UpMvc;
  * @author Ola Waljefors
  * @package UpMvc2
  * @subpackage Form
- * @version 2013.4.1
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -77,8 +78,6 @@ abstract class Base
      */
     public function __construct($name, $label, $parameters = null)
     {
-        $c = UpMvc\Container::get();
-
         if (!preg_match('{^[a-zA-Z_\x7f-\xff][a-zA-Z0-9\x7f-\xff]}', $name)) {
             throw new \InvalidArgumentException(sprintf('%s: Första argumentet måste vara ett giltigt variabelnamn', __METHOD__));
         }
@@ -88,8 +87,6 @@ abstract class Base
         $this->name       = $name;
         $this->label      = $label;
         $this->parameters = $parameters;
-        $this->view       = $c->view;
-        $this->request    = $c->request;
     }
     
     /**
@@ -121,7 +118,7 @@ abstract class Base
     public function isValid()
     {
         foreach ($this->rules as $rule) {
-            if ($rule->validate($this->request->get($this->getName())) === false) {
+            if ($rule->validate(Up::request()->get($this->getName())) === false) {
                 return false;
             }
         }
@@ -154,7 +151,7 @@ abstract class Base
      */
     public function getError($html = '%s')
     {
-        if ($this->request->get('submit')) {
+        if (Up::request()->get('submit')) {
             if ($this->rules) {
                 if (!$this->isValid()) {
                     if ($this->error) {
@@ -172,7 +169,7 @@ abstract class Base
      */
     public function getRequest($name)
     {
-        return $this->request->get($name);
+        return Up::request()->get($name);
     }
     
     /**

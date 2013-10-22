@@ -7,55 +7,55 @@
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.4.2
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
 
 namespace UpMvc;
 
-$c = Container::get();
+use Upmvc\Container as Up;
 
 /**
  * Variabler
  */
-$c->site_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+Up::set('site_path', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 
 /**
  * Closure som returnerar en instans av UpMvc\Database
  */
-$c->database = function () use ($c) {
-    return new Database($c->pdo);
-};
+Up::set('database', function () {
+    return new Database(Up::pdo());
+});
 
 /**
  * Closure som returnerar en instans av PDO
  */
-$c->pdo = function () use ($c) {
+Up::set('pdo', function () {
     $dsn = sprintf(
         '%s:dbname=%s;host=%s',
-        $c->db_engine,
-        $c->db_name,
-        $c->db_host
+        Up::db_engine(),
+        Up::db_name(),
+        Up::db_host()
     );
     return new \PDO(
         $dsn,
-        $c->db_user,
-        $c->db_password,
+        Up::db_user(),
+        Up::db_password(),
         array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
     );
-};
+});
 
 /**
  * Closure som returnerar en instans av UpMvc\Request
  */
-$c->request = function () {
+Up::set('request', function () {
     return new Request();
-};
+});
 
 /**
  * Closure som returnerar en instans av UpMvc\View
  */
-$c->view = function () {
+Up::set('view', function () {
     return new View();
-};
+});

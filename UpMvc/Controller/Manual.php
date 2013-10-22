@@ -7,13 +7,14 @@
 namespace UpMvc\Controller;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 /**
  * Controller för Up MVC's dokumentation
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.10.1
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -35,77 +36,76 @@ class Manual
      */
     public function visa($page = 'inledning')
     {
-        $c = UpMvc\Container::get();
-        $c->view->set('site_path', UpMvc\Container::get()->site_path)
+        Up::view()
           ->setPath('UpMvc/View/');
 
         switch ($page)
         {
             case 'filstruktur':
-                $c->view
+                Up::view()
                   ->set('title',  'Filstruktur - Up MVC')
-                  ->set('content', $c->view->render('filstruktur.php'));
+                  ->set('content', Up::view()->render('filstruktur.php'));
                 break;
             case 'controllers':
-                $c->view
+                Up::view()
                   ->set('title',  'Controllers & actions - Up MVC')
-                  ->set('content', $c->view->render('controllers.php'));
+                  ->set('content', Up::view()->render('controllers.php'));
                 break;
             case 'view':
-                $c->view
-                    ->set('title',  'Views - Up MVC')
-                    ->set('content', $c->view->render('view.php'));
+                Up::view()
+                  ->set('title',  'Views - Up MVC')
+                  ->set('content', Up::view()->render('view.php'));
                 break;
             case 'model':
-                $c->lipsum = new UpMvc\Model\Lipsum();
-                $c->view
+                Up::set('lipsum', new UpMvc\Model\Lipsum());
+                Up::view()
                   ->set('title',  'Models - Up MVC')
-                  ->set('lipsum',  $c->lipsum->get())
-                  ->set('content', $c->view->render('model.php'));
+                  ->set('lipsum',  Up::lipsum()->get())
+                  ->set('content', Up::view()->render('model.php'));
                 break;
             case 'container':
-                $c->view
+                Up::view()
                   ->set('title',  'Servicecontainern - Up MVC')
-                  ->set('content', $c->view->render('container.php'));
+                  ->set('content', Up::view()->render('container.php'));
                 break;
             case 'moduler':
-                $c->view
+                Up::view()
                   ->set('title',  'Moduler - Up MVC')
-                  ->set('content', $c->view->render('moduler.php'));
+                  ->set('content', Up::view()->render('moduler.php'));
                 break;
             case 'rattigheter':
-                $c->view
+                Up::view()
                   ->set('title',  'Rättigheter - Up MVC')
-                  ->set('content', $c->view->render('rattigheter.php'));
+                  ->set('content', Up::view()->render('rattigheter.php'));
                 break;
             case 'request':
-                $c->view
+                Up::view()
                   ->set('title',  'Requestobjektet - Up MVC')
-                  ->set('content', $c->view->render('request.php'));
+                  ->set('content', Up::view()->render('request.php'));
                 break;
             case 'cache':
-                $c->view
+                Up::view()
                   ->set('title',  'Cachning - Up MVC')
-                  ->set('content', $c->view->render('cache.php'));
+                  ->set('content', Up::view()->render('cache.php'));
                 break;
             case 'siduppdelning':
-                $pagination = new UpMvc\Pagination(99, $c->request->get('page', 1), 20);
-                $c->view
+                $pagination = new UpMvc\Pagination(99, Up::request()->get('page', 1), 20);
+                Up::view()
                   ->set('title',  'Siduppdelning / pagination - Up MVC')
                   ->set('page',    $pagination)
-                  ->set('content', $c->view->render('siduppdelning.php'));
+                  ->set('content', Up::view()->render('siduppdelning.php'));
                 break;
             case 'detaljer':
-                $c->view
+                Up::view()
                   ->set('title',  'UML-diagram och tidslinje - Up MVC')
-                  ->set('content', $c->view->render('detaljer.php'));
+                  ->set('content', Up::view()->render('detaljer.php'));
                 break;
             default:
-                $c->view
+                Up::view()
                   ->set('title',  'Inledning - Up MVC')
-                  ->set('content', $c->view->render('inledning.php'));
+                  ->set('content', Up::view()->render('inledning.php'));
                 break;
         }
-        echo $c->view->render('layout.php');
+        echo Up::view()->render('layout.php');
     }
 }

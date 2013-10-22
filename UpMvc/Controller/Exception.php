@@ -7,13 +7,14 @@
 namespace UpMvc\Controller;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 /**
  * Controller för ramverkets interna felhantering
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.10.1
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -30,8 +31,7 @@ class Exception
             $trace[$key]['args'] = array_map('gettype', $trace[$key]['args']);
         }
         
-        $view = new UpMvc\View();
-        echo $view
+        echo Up::view()
             ->set('title', 'Up MVC-fel!')
             ->set('exception', $e)
             ->set('router', new UpMvc\RouteResolver())

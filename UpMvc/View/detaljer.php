@@ -4,7 +4,7 @@
  *
  * @author Ola Waljefors
  * @package UpMvc2
- * @version 2013.2.8
+ * @version 2013.10.2
  * @link https://github.com/saurid/UpMvc2
  * @link http://www.phpportalen.net/viewtopic.php?t=116968
  */
@@ -12,6 +12,7 @@
 namespace UpMvc\View;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 ?>
 
@@ -34,7 +35,7 @@ av lite bilder. Ta en titt nedan, förklaring följer efteråt.</p>
 
 <h4>Ramverket som ett UML-diagram</h4>
 
-<img src="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/img/UpMvc_uml.png" class="center" width="499" height="507" alt="UML-diagram över Up MVC&apos;s kärna" />
+<img src="<?php echo Up::site_path() ?>/UpMvc/View/img/UpMvc_uml.png" class="center" width="499" height="507" alt="UML-diagram över Up MVC&apos;s kärna" />
 
 <p>Här ser vi att det är service containern (UpMvc\Container) som är ramverkets hjärta. Containern
 kan skapa upp och lagra instanser av alla de viktigaste objekten som du och systemet behöver.</p>
@@ -67,7 +68,7 @@ de laddas/skapas. Från vänster till höger visas livslängden för objekten. N
 visas så skapas objektet upp och när den avslutas så har objektet spelat ut sin roll (fast den ligger kvar
 i service containern tills sidan är klar).</p>
 
-<img src="<?php echo UpMvc\Container::get()->site_path ?>/UpMvc/View/img/upmvc_lifeline.png" class="center" width="515" height="253" alt="En sidas livslinje" />
+<img src="<?php echo Up::site_path() ?>/UpMvc/View/img/upmvc_lifeline.png" class="center" width="515" height="253" alt="En sidas livslinje" />
 <ol>
     <li>Här registrerar index-sidan autoloadern som ser till att alla klasser laddas in av systemet automatiskt.</li>
     <li>Sedan hämtar index upp en instans av service containern</li>
