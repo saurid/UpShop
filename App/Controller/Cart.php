@@ -1,24 +1,24 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Controller;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 class Cart
 {
-    private $c;
     private $categories;
 
     public function __construct()
     {
-        $this->c          = UpMvc\Container::get();
-        $this->categories = $this->c->category_model->getAll();
+        $this->categories = Up::category()->getAll();
     }
 
     /**
@@ -26,17 +26,17 @@ class Cart
      */
     public function show()
     {
-        echo $this->c->view
+        echo Up::view()
             ->set('title',         'Varukorg')
-            ->set('cart',          $this->c->cart_model)
+            ->set('cart',          Up::cart())
             ->set('categories',    $this->categories)
             ->set('categorycount', count($this->categories))
-            ->set('error',         $this->c->error)
-            ->set('order',         $this->c->order)
-            ->set('request',       $this->c->request)
-            ->set('shipping',      $this->c->shipping)
-            ->set('user',          $this->c->user_model)
-            ->set('content',       $this->c->view->render('App/View/cart.php'))
+            ->set('error',         Up::error())
+            ->set('order',         Up::order())
+            ->set('request',       Up::request())
+            ->set('shipping',      Up::shipping())
+            ->set('user',          Up::user())
+            ->set('content',       Up::view()->render('App/View/cart.php'))
             ->render('App/View/layout.php');
     }
     
@@ -45,58 +45,58 @@ class Cart
      */
     public function order()
     {
-        $this->c->view
+        Up::view()
             ->set('title',         'Varukorg')
-            ->set('cart',          $this->c->cart_model)
+            ->set('cart',          Up::cart())
             ->set('categories',    $this->categories)
             ->set('categorycount', count($this->categories))
-            ->set('error',         $this->c->error)
-            ->set('order',         $this->c->order)
-            ->set('request',       $this->c->request)
-            ->set('shipping',      $this->c->shipping)
-            ->set('user',          $this->c->user_model);
+            ->set('error',         Up::error())
+            ->set('order',         Up::order())
+            ->set('request',       Up::request())
+            ->set('shipping',      Up::shipping())
+            ->set('user',          Up::user());
         
         if (isset($_POST['submit'])) {
 
-            if (!isValidEmail($this->c->request->get('email'))) {
-                $this->c->error->set('email', 'E-postadressen verkar inte vara giltig!');
+            if (!isValidEmail(Up::request()->get('email'))) {
+                Up::error()->set('email', 'E-postadressen verkar inte vara giltig!');
             }
-            if (!isLength($this->c->request->get('contact'), 20)) {
-                $this->c->error->set('contact', 'Du måste ange ditt namn och postadress!');
+            if (!isLength(Up::request()->get('contact'), 20)) {
+                Up::error()->set('contact', 'Du måste ange ditt namn och postadress!');
             }
-            if (!isPhoneNo($this->c->request->get('phone'))) {
-                $this->c->error->set('phone', 'Du måste skriva in ett telefonnummer!');
+            if (!isPhoneNo(Up::request()->get('phone'))) {
+                Up::error()->set('phone', 'Du måste skriva in ett telefonnummer!');
             }
-            if ($this->c->error->getCount() == 0) {
-                $this->c->order->setNumber();
+            if (Up::error()->getCount() == 0) {
+                Up::order()->setNumber();
                 
-                $this->c->view
-                    ->set('contact', $this->c->request->get('contact'))
-                    ->set('email',   $this->c->request->get('email'))
-                    ->set('phone',   $this->c->request->get('phone'))
-                    ->set('content', $this->c->view->render('App/View/order.php'));
+                Up::view()
+                    ->set('contact', Up::request()->get('contact'))
+                    ->set('email',   Up::request()->get('email'))
+                    ->set('phone',   Up::request()->get('phone'))
+                    ->set('content', Up::view()->render('App/View/order.php'));
 
                 // Kundmail
                 $headers =
                     'MIME-Version: 1.0' . "\r\n" .
                     'Content-type: text/html; charset=utf-8' . "\r\n" .
-                    'From: ' . $this->c->site_email . "\r\n" .
-                    'Reply-To: ' . $this->c->site_email . "\r\n" .
+                    'From: ' . Up::site_email() . "\r\n" .
+                    'Reply-To: ' . Up::site_email() . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
-                $subject = 'Orderbekräftelse från ' . $this->c->site_name;
-                $message = $this->c->view->render('App/View/order_user.php');
+                $subject = 'Orderbekräftelse från ' . Up::site_name();
+                $message = Up::view()->render('App/View/order_user.php');
                 $errors  = false;
                 
-                if (!mail($this->c->request->get('email'), $subject, $message, $headers)) {
+                if (!mail(Up::request()->get('email'), $subject, $message, $headers)) {
                     echo '<p>Fel: Gick ej att skicka mail till kunden.</p>';
                     $errors = true;
                 }
                 
                 // Administratörsmail
                 if (!$errors) {
-                    $to      = $this->c->site_email;
-                    $subject = 'Order från ' . $this->c->site_name;
-                    $message = $this->c->view->render('App/View/order_admin.php');
+                    $to      = Up::site_email();
+                    $subject = 'Order från ' . Up::site_name();
+                    $message = Up::view()->render('App/View/order_admin.php');
 
                     if (!mail($to, $subject, $message, $headers)) {
                         echo '<p>Gick ej att skicka mail till administratören.</p>';
@@ -105,18 +105,18 @@ class Cart
                 }
                 
                 // Order genomförd
-                $this->c->cart_model->deleteAll();
-                header('Location: ' . $this->c->site_path . '/Payment/show');
+                Up::cart()->deleteAll();
+                header('Location: ' . Up::site_path() . '/Payment/show');
                 exit;
             }
             else {
-                $this->c->error->set('general', 'Något gick fel! Kontrollera dina inmatade uppgifter och försök igen.');
+                Up::error()->set('general', 'Något gick fel! Kontrollera dina inmatade uppgifter och försök igen.');
             }
         }
     
         // Om ej fel, rendrera sidan
-        echo $this->c->view
-            ->set('content', $this->c->view->render('App/View/cart.php'))
+        echo Up::view()
+            ->set('content', Up::view()->render('App/View/cart.php'))
             ->render('App/View/layout.php');
     }
     
@@ -125,7 +125,7 @@ class Cart
      */
     public function add()
     {
-        $this->c->cart_model->add((int)$_POST['id'], (int)$_POST['count']);
+        Up::cart()->add((int)$_POST['id'], (int)$_POST['count']);
         header('Location: ' . $_POST['urlref']);
         exit;
     }
@@ -135,7 +135,7 @@ class Cart
      */
     public function edit()
     {
-        $this->c->cart_model->edit((int)$_POST['id'], (int)$_POST['count']);
+        Up::cart()->edit((int)$_POST['id'], (int)$_POST['count']);
         header('Location: ' . $_POST['urlref']);
         exit;
     }
@@ -145,7 +145,7 @@ class Cart
      */
     public function delete()
     {
-        $this->c->cart_model->delete((int)$_POST['id']);
+        Up::cart()->delete((int)$_POST['id']);
         header('Location: ' . $_POST['urlref']);
         exit;
     }
@@ -155,7 +155,7 @@ class Cart
      */
     public function deleteAll()
     {
-        $this->c->cart_model->deleteAll();
+        Up::cart()->deleteAll();
         header('Location: ' . $_POST['urlref']);
         exit;
     }

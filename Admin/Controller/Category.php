@@ -1,15 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace Admin\Controller;
 
 use UpMvc;
-use App\Model as Model;
+use UpMvc\Container as Up;
 
 class Category extends Base
 {
@@ -18,12 +19,12 @@ class Category extends Base
      */
     public function index()
     {
-        $categories = $this->c->category_model->getAll();
-        echo $this->c->view
+        $categories = Up::category()->getAll();
+        echo Up::view()
             ->set('title',         'Admin kategorier')
             ->set('categories',    $categories)
             ->set('categorycount', count($categories))
-            ->set('content',       $this->c->view->render('Admin/View/categories.php'))
+            ->set('content',       Up::view()->render('Admin/View/categories.php'))
             ->render('Admin/View/layout.php');
     }
     
@@ -32,8 +33,8 @@ class Category extends Base
      */
     public function insert()
     {
-        $this->c->category_model->insert($_POST['name']);
-        header('Location: ' . $this->c->site_path . '/Admin/Category');
+        Up::category()->insert($_POST['name']);
+        header('Location: ' . Up::site_path() . '/Admin/Category');
         exit;
     }
     
@@ -43,8 +44,8 @@ class Category extends Base
      */
     public function update($id)
     {
-        $this->c->category_model->update($id, $_POST['name']);
-        header('Location: ' . $this->c->site_path . '/Admin/Category');
+        Up::category()->update($id, $_POST['name']);
+        header('Location: ' . Up::site_path() . '/Admin/Category');
         exit;
     }
     
@@ -54,8 +55,8 @@ class Category extends Base
      */
     public function delete($id)
     {
-        $this->c->category_model->delete($id);
-        header('Location: ' . $this->c->site_path . '/Admin/Category');
+        Up::category()->delete($id);
+        header('Location: ' . Up::site_path() . '/Admin/Category');
         exit;
     }
 }

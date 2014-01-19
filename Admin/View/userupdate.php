@@ -1,8 +1,9 @@
+<?php use UpMvc\Container as Up; ?>
 
 <h3>Ändra en användare i registret</h3>
 
 <?php foreach ($users as $user): ?>
-    <form action="<?php echo UpMvc\Container::get()->site_path ?>/Admin/User/update/<?php echo $user['id'] ?>" method="post">
+    <form action="<?php echo Up::site_path() ?>/Admin/User/update/<?php echo $user['id'] ?>" method="post">
         <label for="contact">Adress</label>
         <textarea name="contact" rows="5" cols="40"><?php echo $user['contact'] ?></textarea>
 

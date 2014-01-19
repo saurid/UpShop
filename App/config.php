@@ -1,70 +1,79 @@
 <?php
 /**
- * Konfiguration för Applikationen i mappen App
- *
- * @author Ola Waljefors
+ * Konfiguration för Applikationen i mappen App.
+ * 
  * @package UpShop
- * @version 2013.1.1
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
-$c = UpMvc\Container::get();
+use UpMvc\Container as Up;
 
-/**
- * Databasuppgifter
- */
-$c->db_engine   = 'mysql';
-$c->db_host     = 'localhost';
-$c->db_user     = 'root';
-$c->db_password = '';
-$c->db_name     = 'upshop';
+/** Databasuppgifter. */
+Up::set('db_engine',   'mysql');
+Up::set('db_host',     'localhost');
+Up::set('db_user',     'root');
+Up::set('db_password', '');
+Up::set('db_name',     'upshop');
 
-/**
- * Övriga uppgifter om sidan
- */
-$c->site_name     = 'Din exempelshop';
-$c->site_email    = 'min.email@domänen.se';
+/** Övriga uppgifter om sidan. */
+Up::set('site_name',  'Din exempelshop');
+Up::set('site_email', 'ola@waljefors.se');
 
-/**
- * Up Shop-specifika konstanter
- */
-$c->image_thumb_width  = 120;
-$c->image_thumb_height = 120;
-$c->image_size         = 400;
+/** Up Shop-specifika konstanter. */
+Up::set('image_thumb_width',  120);
+Up::set('image_thumb_height', 120);
+Up::set('image_size',         400);
 
-/**
- * Up Shop-specifika funktioner
- */
+/** Up Shop-specifika funktioner. */
 require('Includes/htmlescape.php');
 require('Includes/validation.php');
 
-/**
- * Lägg in modeller/classer i containern som closures
- */
-$c->cart_model = function () {
-    return new App\Model\Cart();
-};
-$c->category_model = function () {
-    return new App\Model\Category();
-};
-$c->item_model = function () {
-    return new App\Model\Item();
-};
-$c->user_model = function () {
-    return new App\Model\User();
-};
-$c->userrole_model = function () {
-    return new App\Model\Userrole();
-};
-$c->vat_model = function () {
-    return new App\Model\Vat();
-};
-$c->error = function () {
-    return UpMvc\Error::getInstance();
-};
-$c->shipping = function () use ($c) {
-    return new App\Logic\ShippingWeight($c->cart_model);
-};
-$c->order = function () use ($c) {
-    return new App\Logic\Order($c->cart_model, $c->shipping);
-};
+/** Lägg in modeller/classer i containern som closures. */
+Up::set('cart',
+    function () {
+        return new App\Model\Cart();
+    }
+);
+Up::set('category',
+    function () {
+        return new App\Model\Category();
+    }
+);
+Up::set('item',
+    function () {
+        return new App\Model\Item();
+    }
+);
+Up::set('user',
+    function () {
+        return new App\Model\User();
+    }
+);
+Up::set('userrole',
+    function () {
+        return new App\Model\Userrole();
+    }
+);
+Up::set('vat',
+    function () {
+        return new App\Model\Vat();
+    }
+);
+Up::set('error',
+    function () {
+        return UpMvc\Error::getInstance();
+    }
+);
+Up::set('shipping',
+    function () {
+        return new App\Logic\ShippingWeight(Up::cart());
+    }
+);
+Up::set('order',
+    function () {
+        return new App\Logic\Order(Up::cart(), Up::shipping());
+    }
+);

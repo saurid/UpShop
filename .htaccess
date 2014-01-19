@@ -1,9 +1,9 @@
 #
-# @author Ola Waljefors
 # @version 2013.4.3
+# @author  Ola Waljefors
 # @package Up MVC
-# @link https://github.com/saurid/UpMvc2
-# @link http://www.phpportalen.net/viewtopic.php?t=116968
+# @link    https://github.com/saurid/UpMvc2
+# @link    http://www.phpportalen.net/viewtopic.php?t=116968
 #
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -1,0 +1,27 @@
+{
+    "name": "saurid/UpMvc",
+    "description": "Up Mvc 2, ett ramverk i PHP",
+    "type": "project",
+    "homepage": "https://github.com/saurid/UpMvc2",
+    "time": "2014-01-16",
+    "authors": [
+        {
+            "name": "Ola Waljefors"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Documentation\\": "Documentation/",
+            "UpMvc\\": "vendor/saurid/UpMvc/",
+            "App\\": "App/",
+            "": ""
+        },
+        "files": [
+            "vendor/saurid/UpMvc/config.php",
+            "App/config.php"
+        ]
+    },
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

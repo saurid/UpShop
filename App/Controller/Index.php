@@ -1,14 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Controller;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 class Index
 {
@@ -17,19 +19,22 @@ class Index
      */
     public function index()
     {
-        $c          = UpMvc\Container::get();
-        $items      = $c->item_model->getLatest();
-        $categories = $c->category_model->getAll();
+        Up::set('item',     new \App\Model\Item());
+        Up::set('category', new \App\Model\Category());
+        Up::set('cart',     new \App\Model\Cart());
         
-        echo $c->view
+        $items      = Up::item()->getLatest();
+        $categories = Up::category()->getAll();
+        
+        echo Up::view()
             ->set('title',         'Hem')
-            ->set('cart',          $c->cart_model)
+            ->set('cart',          Up::cart())
             ->set('categories',    $categories)
             ->set('categorycount', count($categories))
             ->set('category',      'Nya produkter')
             ->set('items',         $items)
             ->set('itemcount',     count($items))
-            ->set('content',       $c->view->render('App/View/items.php'))
+            ->set('content',       Up::view()->render('App/View/items.php'))
             ->render('App/View/layout.php');
     }
 }

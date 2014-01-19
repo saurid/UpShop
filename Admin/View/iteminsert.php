@@ -1,7 +1,8 @@
+<?php use UpMvc\Container as Up; ?>
 
 <h3>Skapa en ny artikel</h3>
 
-<form action="<?php echo UpMvc\Container::get()->site_path ?>/Admin/Item/insert" method="post" enctype="multipart/form-data">
+<form action="<?php echo Up::site_path() ?>/Admin/Item/insert" method="post" enctype="multipart/form-data">
     <label for="file">Ladda upp bild</label>
     <input type="file" name="file" id="file" />
     <input type="hidden" name="MAX_FILE_SIZE" value="20000000" />

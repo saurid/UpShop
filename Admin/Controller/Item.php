@@ -1,15 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace Admin\Controller;
 
 use UpMvc;
-use App\Model as Model;
+use UpMvc\Container as Up;
 
 class Item extends Base
 {
@@ -18,18 +19,18 @@ class Item extends Base
      */
     public function index()
     {
-        $count      = $this->c->item_model->getCount();
-        $page       = $this->c->request->get('page', 1);
+        $count      = Up::item()->getCount();
+        $page       = Up::request()->get('page', 1);
         $pagination = new UpMvc\Pagination($count, $page, 25);
 
-        $items = $this->c->item_model->getAll($pagination->getSqlLimit());
+        $items = Up::item()->getAll($pagination->getSqlLimit());
 
-        echo $this->c->view
+        echo Up::view()
             ->set('title',     'Admin artiklar')
             ->set('items',     $items)
             ->set('itemcount', $count)
             ->set('nav',       $pagination->getNav())
-            ->set('content',   $this->c->view->render('Admin/View/items.php'))
+            ->set('content',   Up::view()->render('Admin/View/items.php'))
             ->render('Admin/View/layout.php');
     }
     
@@ -39,16 +40,16 @@ class Item extends Base
     public function insert()
     {
         if (isset($_POST['submit'])) {
-            $insertid = $this->c->item_model->insert();
-            header('Location: ' . $this->c->site_path . '/Admin/Item/update/' . $insertid);
+            $insertid = Up::item()->insert();
+            header('Location: ' . Up::site_path() . '/Admin/Item/update/' . $insertid);
             exit;
         }
 
-        echo $this->c->view
+        echo Up::view()
             ->set('title',      'Admin lägg till artikel')
-            ->set('categories', $this->c->category_model->getAll())
-            ->set('vat',        $this->c->vat_model->getAll())
-            ->set('content',    $this->c->view->render('Admin/View/iteminsert.php'))
+            ->set('categories', Up::category()->getAll())
+            ->set('vat',        Up::vat()->getAll())
+            ->set('content',    Up::view()->render('Admin/View/iteminsert.php'))
             ->render('Admin/View/layout.php');
     }
 
@@ -59,19 +60,19 @@ class Item extends Base
     public function update($id)
     {
         if (isset($_POST['submit'])) {
-            $this->c->item_model->update($id);
-            header('Location: ' . $this->c->site_path . '/Admin/Item/update/' . $id);
+            Up::item()->update($id);
+            header('Location: ' . Up::site_path() . '/Admin/Item/update/' . $id);
             exit;
         }
         
-        $items = $this->c->item_model->getById($id);
-        echo $this->c->view
+        $items = Up::item()->getById($id);
+        echo Up::view()
             ->set('title',      'Admin artiklar')
             ->set('items',      $items)
             ->set('itemcount',  count($items))
-            ->set('categories', $this->c->category_model->getAll())
-            ->set('vat',        $this->c->vat_model->getAll())
-            ->set('content',    $this->c->view->render('Admin/View/itemupdate.php'))
+            ->set('categories', Up::category()->getAll())
+            ->set('vat',        Up::vat()->getAll())
+            ->set('content',    Up::view()->render('Admin/View/itemupdate.php'))
             ->render('Admin/View/layout.php');
     }
     
@@ -81,8 +82,8 @@ class Item extends Base
      */
     public function delete($id)
     {
-        $this->c->item_model->delete($id);
-        header('Location: ' . $this->c->site_path . '/Admin/Item');
+        Up::item()->delete($id);
+        header('Location: ' . Up::site_path() . '/Admin/Item');
         exit;
     }
 }

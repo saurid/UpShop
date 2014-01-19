@@ -1,7 +1,8 @@
+<?php use UpMvc\Container as Up; ?>
 
 <h3>Lägg till en ny användare</h3>
 
-<form action="<?php echo UpMvc\Container::get()->site_path ?>/Admin/User/insert" method="post">
+<form action="<?php echo Up::site_path() ?>/Admin/User/insert" method="post">
     <label for="contact">Adress</label>
     <textarea name="contact" rows="5" cols="40"></textarea>
 

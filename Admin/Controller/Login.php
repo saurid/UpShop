@@ -1,15 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace Admin\Controller;
 
 use UpMvc;
-use App\Model as Model;
+use UpMvc\Container as Up;
 
 class Login extends Base
 {
@@ -18,12 +19,12 @@ class Login extends Base
      */
     public function index()
     {
-        echo $this->c->view
-            ->set('user',    $this->c->user_model)
-            ->set('request', $this->c->request)
-            ->set('error',   $this->c->error)
+        echo Up::view()
+            ->set('user',    Up::user())
+            ->set('request', Up::request())
+            ->set('error',   Up::error())
             ->set('title',   'Admin login')
-            ->set('content', $this->c->view->render('Admin/View/login.php'))
+            ->set('content', Up::view()->render('Admin/View/login.php'))
             ->render('Admin/View/layout.php');
     }
     
@@ -32,17 +33,17 @@ class Login extends Base
      */
     public function login()
     {
-        $this->c->user_model->login(
-            $this->c->request->get('email'),
-            $this->c->request->get('password')
+        Up::user()->login(
+            Up::request()->get('email'),
+            Up::request()->get('password')
         );
 
-        if ($this->c->user_model->isIn()) {
-            header('Location: ' . $this->c->site_path . '/Admin/Item');
+        if (Up::user()->isIn()) {
+            header('Location: ' . Up::site_path() . '/Admin/Item');
             exit;
         }
         else {
-            $this->c->error->set('login', 'Användare eller lösenord är felaktigt');
+            Up::error()->set('login', 'Användare eller lösenord är felaktigt');
             $this->index();
         }
     }
@@ -52,8 +53,8 @@ class Login extends Base
      */
     public function logout()
     {
-        $this->c->user_model->logout();
-        header('Location: ' . $this->c->site_path . '/Admin/Login');
+        Up::user()->logout();
+        header('Location: ' . Up::site_path() . '/Admin/Login');
         exit;
     }
 }

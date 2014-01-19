@@ -1,15 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Model;
 
 use UpMvc;
-use App;
+use UpMvc\Container as Up;
 
 class Cart
 {
@@ -70,8 +71,7 @@ class Cart
     function add($id, $count)
     {
         if($count >= 0) {
-            $result = UpMvc\Container::get()
-                ->database
+            $result = Up::database()
                 ->prepare('
                     SELECT item.id AS id, item.name AS name, price, retailprice, weight, count, image, vat AS vat
                     FROM item
@@ -84,7 +84,7 @@ class Cart
                 ->fetchAll();
             
             if (!isset($this->items[$id])) {
-                $this->items[$id] = new App\Logic\Item(
+                $this->items[$id] = new \App\Logic\Item(
                     $count,
                     $result[0]['id'],
                     $result[0]['name'],
@@ -112,8 +112,7 @@ class Cart
      */
     function edit($id, $count)
     {
-        $result = UpMvc\Container::get()
-            ->database
+        $result = Up::database()
             ->prepare('
                 SELECT item.id AS id, item.name AS name, price,    retailprice, weight, count, image, vat AS vat
                 FROM item

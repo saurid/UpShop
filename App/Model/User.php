@@ -1,14 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Model;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 class User
 {
@@ -43,8 +45,7 @@ class User
      */
     function login($user, $pass)
     {
-        $result = UpMvc\Container::get()
-            ->database
+        $result = Up::database()
             ->prepare('SELECT email, password, contact, phone, userrole_id FROM user WHERE email = ? AND password = ?')
             ->execute(array($user, md5($pass)))
             ->fetchAll();
@@ -117,8 +118,7 @@ class User
      */
     function getAll()
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT user.id, contact, email, phone, userrole.id as userrole_id, userrole.name as userrole
                 FROM user
@@ -137,8 +137,7 @@ class User
      */
     function getById($id)
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT user.id AS id, contact, email, phone, userrole.id as userrole_id, userrole.name as userrole
                 FROM user
@@ -157,8 +156,7 @@ class User
      */
     function insert()
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('
                 INSERT
                 INTO user (userrole_id, email, contact, phone, password)
@@ -180,8 +178,7 @@ class User
      */
     function update($id)
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare("
                 UPDATE user
                 SET
@@ -201,8 +198,7 @@ class User
         
         // Om lösenordet ändrades
         if(!empty($_POST['password'])) {
-            UpMvc\Container::get()
-                ->database
+            Up::database()
                 ->prepare('UPDATE user SET password = :password WHERE id = :id')
                 ->execute(array(':password' => md5($_POST['password']), ':id' => $id));
         }
@@ -214,8 +210,7 @@ class User
      */
     function delete($id)
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('DELETE FROM user WHERE id = :id')
             ->execute(array(':id' => $id));
     }

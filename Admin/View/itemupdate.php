@@ -1,3 +1,4 @@
+<?php use UpMvc\Container as Up; ?>
 
 <h3>Ändra på en artikel</h3>
 
@@ -6,11 +7,11 @@
         <?php if(empty($item['image'])): ?>
             Ingen bild är uppladdad...
         <?php else: ?>
-            <a href="<?php echo UpMvc\Container::get()->site_path ?>/App/View/img/items/<?php echo $item['image'] ?>" class="single_image"><img src="<?php echo UpMvc\Container::get()->site_path ?>/App/View/img/items/<?php echo $item['thumb'] ?>" /></a>
+            <a href="<?php echo Up::site_path() ?>/App/View/img/items/<?php echo $item['image'] ?>" class="single_image"><img src="<?php echo Up::site_path() ?>/App/View/img/items/<?php echo $item['thumb'] ?>" /></a>
         <?php endif ?>
     </p>
     
-    <form action="<?php echo UpMvc\Container::get()->site_path ?>/Admin/Item/update/<?php echo $item['id'] ?>" method="post" enctype="multipart/form-data">
+    <form action="<?php echo Up::site_path() ?>/Admin/Item/update/<?php echo $item['id'] ?>" method="post" enctype="multipart/form-data">
         <label for="file">Ladda upp bild</label>
         <input type="file" name="file" id="file" />
         <input type="hidden" name="MAX_FILE_SIZE" value="20000000" />

@@ -1,14 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Model;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 class Category
 {
@@ -18,8 +20,7 @@ class Category
      */
     public function getAll()
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT category.id, category.name, COUNT(category_id) as count
                 FROM category
@@ -38,8 +39,7 @@ class Category
      */
     public function getById($id)
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('SELECT name FROM category WHERE id = :id')
             ->execute(array(':id' => $id))
             ->fetchAll();
@@ -51,8 +51,7 @@ class Category
      */
     public function insert($name)
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('INSERT INTO category (name) VALUES (:name)')
             ->execute(array(':name' => $name));
     }
@@ -63,8 +62,7 @@ class Category
      */
     public function delete($id)
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('DELETE FROM category WHERE id = (:id)')
             ->execute(array(':id' => $id));
     }
@@ -76,8 +74,7 @@ class Category
      */
     public function update($id, $name)
     {
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('UPDATE category SET name = :name WHERE id = :id')
             ->execute(array(':id' => $id, ':name' => $name));
     }

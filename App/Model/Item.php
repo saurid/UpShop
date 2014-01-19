@@ -1,14 +1,16 @@
 <?php
 /**
- * @author Ola Waljefors
- * @version 2013.1.1
  * @package UpShop
- * @link http://www.phpportalen.net/viewtopic.php?t=117004
+ * @author  Ola Waljefors
+ * @version 2014.1.1
+ * @link    https://github.com/saurid/UpShop
+ * @link    http://www.phpportalen.net/viewtopic.php?t=117004
  */
 
 namespace App\Model;
 
 use UpMvc;
+use UpMvc\Container as Up;
 
 class Item
 {
@@ -18,8 +20,7 @@ class Item
      */
     public function getLatest()
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT item.id, item.name, description, price, retailprice, weight, count, image, thumb, category_id, category.name AS category, vat_id, item.date AS date
                 FROM item
@@ -38,8 +39,7 @@ class Item
      */
     public function getCategory($id)
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT item.id, item.name, description, price, retailprice, weight, count, image, thumb, category_id, category.name AS category, vat_id, item.date AS date
                 FROM item
@@ -58,8 +58,7 @@ class Item
      */
     public function getById($id)
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare('
                 SELECT id, name, description, price, retailprice, weight, count, image, thumb, category_id, vat_id
                 FROM item
@@ -76,8 +75,7 @@ class Item
      */
     public function getAll($limit = '')
     {
-        return UpMvc\Container::get()
-            ->database
+        return Up::database()
             ->prepare("
                 SELECT item.id, item.name, description, price, retailprice, weight, count, image, thumb, category_id, category.name AS category, vat_id, vat
                 FROM item
@@ -97,8 +95,7 @@ class Item
     public function insert()
     {
         // Spara artikel i databas
-        $insertid = UpMvc\Container::get()
-            ->database
+        $insertid = Up::database()
             ->prepare('
                 INSERT
                 INTO item (name, description, price, weight, count, category_id, vat_id)
@@ -139,8 +136,7 @@ class Item
             }
 
             // Spara bild i databasen
-            UpMvc\Container::get()
-                ->database
+            Up::database()
                 ->prepare('
                     UPDATE item
                     SET image = :filename, thumb = :filenamethumb
@@ -163,8 +159,7 @@ class Item
     public function update($id)
     {
         // Uppdatera artikel i databas
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('
                 UPDATE item 
                 SET
@@ -204,8 +199,7 @@ class Item
             unlink($image);
         }
 
-        UpMvc\Container::get()
-            ->database
+        Up::database()
             ->prepare('DELETE FROM item WHERE id = :id')
             ->execute(array(':id' => $id));   
     }
@@ -216,8 +210,7 @@ class Item
      */
     function getCount()
     {
-        $count = UpMvc\Container::get()
-            ->database
+        $count = Up::database()
             ->prepare('SELECT COUNT(*) AS count FROM item')
             ->execute()
             ->fetchAll();

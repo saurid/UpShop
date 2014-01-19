@@ -1,0 +1,202 @@
+/**
+ * Formatmall för Up MVC's dokumentation och felmeddelanden.
+ *
+ * @package UpMvc2
+ * @author  Ola Waljefors
+ * @version 2013.2.3
+ * @link    https://github.com/saurid/UpMvc2
+ * @link    http://www.phpportalen.net/viewtopic.php?t=116968
+ */
+body {
+    margin: 0 0 5em 0;
+    font: 0.9em/150% Tahoma, sans-serif;
+    color: #222;
+}
+code, pre {
+    font: 1em/150% monospace;
+    color: #555;
+}
+header {
+    float: right;
+    text-align: center;
+}
+article {
+    margin: 1% 10%;
+}
+h3 {
+    margin-top: 3em;
+}
+td, th {
+    text-align: left;
+    vertical-align: top;
+    padding: 0 0.5em;
+}
+tr:nth-child(odd) {
+    background-color: #eee;
+}
+th {
+    background-color: #fff;
+    border: 2px solid #ffca14;
+    border-width: 0 0 2px 0;
+}
+img {
+    border: 0;
+}
+.center {
+    display: block;
+    margin: 0 auto;
+}
+
+
+
+/**
+ * Navigation
+ */
+nav {
+    padding: 0 10%;
+    background-color: #2a2a2a;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+nav ul {
+    float: left;
+    padding-right: 1em;
+}
+nav h2 {
+    font: small-caps normal 1em Tahoma, sans-serif;
+    letter-spacing: 0.15em;
+    color: #999;
+    margin: 0;
+}
+nav br {
+    clear: both;
+}
+
+
+
+/**
+ * Viktigt-notis
+ */
+.note {
+    padding: 15px;
+    margin: 2em 0;
+    border-radius: 7px;
+    background-color: #eee;
+}
+.note p {
+    margin: -30px 0 0 -35px;
+    padding: 30px 0 0 60px;
+    background: url('../../View/img/important.png') no-repeat;
+}
+
+
+
+/**
+ * Mappvisning
+ */
+.folder {
+    padding-left: 1.5em;
+    background: url('../../View/img/folder.png') no-repeat top left;
+}
+.file {
+    padding-left: 20px;
+    background: url('../../View/img/file.png') no-repeat top left;
+}
+ul {
+    padding: 0 0 0 0.5em;
+    list-style-type: none;
+}
+ul ul {
+    border-left: 1px solid #dfdfdf;
+    margin-left: -1em;
+    padding-left: 1em;
+}
+
+
+
+/**
+ * Kodvisning
+ */
+pre  {
+    padding: 1em;
+    border-radius: 7px;
+    background-color: #333;
+    color: #fff;
+}
+.comment {
+    color: #ffca14;
+}
+
+
+
+/**
+ * Exempel på stilmall för Up MVC Form
+ */
+.UpMvc_Form_Label {
+    display: block;
+    margin-top: 1em;
+}
+.UpMvc_Form_Text input {
+    width: 25em;
+}
+textarea {
+    width: 25em;
+    height: 5em;
+}
+.UpMvc_Form_Input_Span {
+    display: block;
+    margin-left: 1em;
+}
+.UpMvc_Form_Submit, .UpMvc_Form_Reset {
+    display: inline;
+    line-height: 5em;
+}
+.UpMvc_Error {
+    display: block;
+    background: url('../../View/img/error.png') no-repeat center left;
+    padding-left: 20px;
+    color: #e00;
+    font-weight: bold;
+}
+
+
+
+/**
+ * Exempel på stilmall för Up MVC Pagination
+ */
+.UpMvc_Pagination {
+    margin: 0;
+    padding: 0;
+}
+.UpMvc_Pagination ul {
+    margin: 0;
+    padding: 0;
+}
+.UpMvc_Pagination li {
+    list-style-type: none;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+li.UpMvc_Page_Current {
+    padding: 0 0.3em;
+    background-color: #ffca14;
+}
+li.UpMvc_Page_Paus {
+    border-width: 0;
+}
+.UpMvc_Pagination a {
+    display: block;
+    padding: 0 0.3em;
+    text-decoration: none;
+    color: #222;
+}
+.UpMvc_Pagination a:hover {
+    background-color: #ffca14;
+}
+li.UpMvc_Page_Sum {
+    padding: 0 0.3em;
+    border-width: 0;
+    color: #777;
+}

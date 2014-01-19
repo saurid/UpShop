@@ -1,0 +1,24 @@
+/**
+ * Formatmall för utskrifter.
+ *
+ * @package UpMvc2
+ * @author  Ola Waljefors
+ * @version 2013.1.1
+ * @link    https://github.com/saurid/UpMvc2
+ * @link    http://www.phpportalen.net/viewtopic.php?t=116968
+ */
+body {
+    margin: 0;
+    font-size: 14pt;
+}
+nav {
+    display: none;
+}
+.note {
+    border: 2px solid #ddd;
+}
+.note p {
+    margin: 0;
+    padding: 1em;
+    font-style: italic;
+}
