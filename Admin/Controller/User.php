@@ -21,28 +21,28 @@ class User extends Base
     {
         $users = Up::user()->getAll();
         echo Up::view()
-            ->set('title',     'Admin kontakter')
-            ->set('users',     $users)
+            ->set('title', 'Admin kontakter')
+            ->set('users', $users)
             ->set('usercount', count($users))
-            ->set('content',   Up::view()->render('Admin/View/users.php'))
+            ->set('content', Up::view()->render('Admin/View/users.php'))
             ->render('Admin/View/layout.php');
     }
-    
+
     /**
      * Lägg till användare
      */
     public function insert()
     {
-        if(isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
             Up::user()->insert($_POST);
             header('Location: ' . Up::site_path() . '/Admin/User');
             exit;
         }
 
         echo Up::view()
-            ->set('title',     'Admin lägg till kontakt')
+            ->set('title', 'Admin lägg till kontakt')
             ->set('userroles', Up::userrole()->getAll())
-            ->set('content',   Up::view()->render('Admin/View/userinsert.php'))
+            ->set('content', Up::view()->render('Admin/View/userinsert.php'))
             ->render('Admin/View/layout.php');
     }
 
@@ -59,10 +59,10 @@ class User extends Base
         }
 
         echo Up::view()
-            ->set('title',     'Admin ändra kontakt')
-            ->set('users',     Up::user()->getById($id))
+            ->set('title', 'Admin ändra kontakt')
+            ->set('users', Up::user()->getById($id))
             ->set('userroles', Up::userrole()->getAll())
-            ->set('content',   Up::view()->render('Admin/View/userupdate.php'))
+            ->set('content', Up::view()->render('Admin/View/userupdate.php'))
             ->render('Admin/View/layout.php');
     }
 

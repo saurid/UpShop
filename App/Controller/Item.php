@@ -20,20 +20,20 @@ class Item
      */
     public function show($id)
     {
-        Up::set('item',     new \App\Model\Item());
+        Up::set('item', new \App\Model\Item());
         Up::set('category', new \App\Model\Category());
-        Up::set('cart',     new \App\Model\Cart());
+        Up::set('cart', new \App\Model\Cart());
 
         $item       = Up::item()->getById($id);
         $categories = Up::category()->getAll();
         
         echo Up::view()
-            ->set('title',         $item[0]['name'])
-            ->set('cart',          Up::cart())
-            ->set('categories',    $categories)
+            ->set('title', $item[0]['name'])
+            ->set('cart', Up::cart())
+            ->set('categories', $categories)
             ->set('categorycount', count($categories))
-            ->set('item',          $item[0])
-            ->set('content',       Up::view()->render('App/View/item.php'))
+            ->set('item', $item[0])
+            ->set('content', Up::view()->render('App/View/item.php'))
             ->render('App/View/layout.php');
     }
 }

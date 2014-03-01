@@ -70,7 +70,7 @@ class Item
      * @param $vat integer Momssats
      * @param $image string Bilds länkadress
      */
-    function __construct($count, $id, $name, $price, $retailprice, $weight, $vat, $image)
+    public function __construct($count, $id, $name, $price, $retailprice, $weight, $vat, $image)
     {
         $this->count = $count;
         $this->id = $id;
@@ -81,12 +81,12 @@ class Item
         $this->vat = $vat;
         $this->image = $image;
     }
-    
+
     /**
      * Hämta artikelns id-nummer
      * @return integer Id-nummer
      */
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -95,7 +95,7 @@ class Item
      * Hämta antalet
      * @return integer Antal
      */
-    function getCount()
+    public function getCount()
     {
         return $this->count;
     }
@@ -104,7 +104,7 @@ class Item
      * Addera antal
      * @param $count integer Antal
      */
-    function addCount($count)
+    public function addCount($count)
     {
         $this->count += $count;
     }
@@ -113,7 +113,7 @@ class Item
      * Sätt nytt antal
      * @param $count integer Antal
      */
-    function setCount($count)
+    public function setCount($count)
     {
         $this->count = $count;
     }
@@ -122,7 +122,7 @@ class Item
      * Hämta namn
      * @return string Namn
      */
-    function getName()
+    public function getName()
     {
         return $this->name;
     }
@@ -131,7 +131,7 @@ class Item
      * Hämta pris inkl. moms
      * @return float Pris
      */
-    function getPriceIncl()
+    public function getPriceIncl()
     {
         return $this->price;
     }
@@ -140,7 +140,7 @@ class Item
      * Hämta pris exkl. moms
      * @return float Pris
      */
-    function getPriceExcl()
+    public function getPriceExcl()
     {
         return $this->price * (1/(1*((100+ $this->vat )/100)));
     }
@@ -149,7 +149,7 @@ class Item
      * Hämta momssats
      * @return integer Momssats
      */
-    function getVat()
+    public function getVat()
     {
         return $this->vat;
     }
@@ -158,16 +158,16 @@ class Item
      * Hämta vikt
      * @return integer Vikt
      */
-    function getWeight()
+    public function getWeight()
     {
         return $this->weight;
     }
-    
+
     /**
      * Hämta länk till bild
      * @return string Bildlänk
      */
-    function getImage()
+    public function getImage()
     {
         return $this->image;
     }
@@ -176,25 +176,25 @@ class Item
      * Hämta summerad kostnad för artikeln inkl. moms
      * @return integer Summa
      */
-    function getSumIncl()
+    public function getSumIncl()
     {
         return $this->count * $this->price;
     }
-    
+
     /**
      * Hämta summerad kostnad för artikeln inkl. moms för återförsäljare
      * @return integer Summa
      */
-    function getRetailSumIncl()
+    public function getRetailSumIncl()
     {
         return $this->count * $this->retailprice;
     }
-    
+
     /**
      * Hämta summerad kostnad för artikeln exkl. moms
      * @return integer Summa
      */
-    function getSumExcl()
+    public function getSumExcl()
     {
         return $this->count * $this->price * (1/(1*((100+ $this->vat )/100)));
     }
@@ -203,7 +203,7 @@ class Item
      * Hämta summerad kostnad för artikeln exkl. moms för återförsäljare
      * @return integer Summa
      */
-    function getRetailSumExcl()
+    public function getRetailSumExcl()
     {
         return $this->count * $this->retailprice * (1/(1*((100+ $this->vat )/100)));
     }

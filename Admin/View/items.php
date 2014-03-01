@@ -25,7 +25,7 @@
                         <a href="<?php echo Up::site_path() ?>/Admin/Item/update/<?php echo $item['id'] ?>">
                             <img src="<?php echo Up::site_path() ?>/App/View/img/items/<?php echo $item['thumb'] ?>" width="40" />
                         </a>
-                    <?php endif ?> 
+                    <?php endif ?>
                 </td>
                 <td><?php _e($item['name']) ?></td>
                 <td class="price"><?php echo number_format($item['price'], 2, ',', ' ') ?></td>

@@ -6,7 +6,7 @@
     <label for="file">Ladda upp bild</label>
     <input type="file" name="file" id="file" />
     <input type="hidden" name="MAX_FILE_SIZE" value="20000000" />
-        
+
     <label for="name">Namn</label>
     <input type="text" name="name" size="40" />
 
@@ -18,7 +18,7 @@
 
     <label for="weight">Vikt</label>
     <input type="text" name="weight" size="10" />
-        
+
     <label for="count">Antal</label>
     <input type="text" name="count" size="10" value="1" />
 
@@ -35,6 +35,6 @@
             <option value="<?php echo $row['id'] ?>"><?php echo $row['vat'] ?>%, <?php _e($row['name']) ?></option>
         <?php endforeach ?>
     </select>
-    
+
     <p><input type="submit" name="submit" value="spara artikeln" /></p>
 </form>

@@ -24,7 +24,7 @@ class Cart
      * Hämta ev. varukorg i sessionsvariabel
      * @uses global $_SESSION
      */
-    function __construct()
+    public function __construct()
     {
         if (isset($_SESSION['cart'])) {
             $this->items = $_SESSION['cart'];
@@ -35,30 +35,29 @@ class Cart
      * Lagra varukorg i sessionsvariabel
      * @uses global $_SESSION
      */
-    function __destruct()
+    public function __destruct()
     {
         $_SESSION['cart'] = $this->items;
     }
-    
+
     /**
      * Hämta varukorgens artiklar
      * @return array Varukorgens innehåll
      */
-    function getItems()
+    public function getItems()
     {
         return $this->items;
     }
-    
+
     /**
      * Hämta antal artiklar i varukorgen
      * @return integer Antal artiklar
      */
-    function getItemCount($id)
+    public function getItemCount($id)
     {
         if (isset($this->items[$id])) {
             return $this->items[$id]->getCount();
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -68,21 +67,21 @@ class Cart
      * @param $id integer Artikelns idnr
      * @param $count integer Antal som ska läggas till
      */
-    function add($id, $count)
+    public function add($id, $count)
     {
-        if($count >= 0) {
+        if ($count >= 0) {
             $result = Up::database()
-                ->prepare('
-                    SELECT item.id AS id, item.name AS name, price, retailprice, weight, count, image, vat AS vat
+                ->prepare(
+                    'SELECT item.id AS id, item.name AS name, price, retailprice, weight, count, image, vat AS vat
                     FROM item
                     LEFT JOIN (vat)
                     ON (vat_id = vat.id)
                     WHERE item.id = ?
-                    LIMIT 1;
-                ')
+                    LIMIT 1'
+                )
                 ->execute(array($id))
                 ->fetchAll();
-            
+
             if (!isset($this->items[$id])) {
                 $this->items[$id] = new \App\Logic\Item(
                     $count,
@@ -94,8 +93,7 @@ class Cart
                     $result[0]['vat'],
                     $result[0]['image']
                 );
-            }
-            else {
+            } else {
                 $this->items[$id]->addCount($count);
             }
             if ($this->items[$id]->getCount() > $result[0]['count']) {
@@ -110,20 +108,20 @@ class Cart
      * @param $id integer Artikelns idnr
      * @param $count integer Antal som ska ändras till
      */
-    function edit($id, $count)
+    public function edit($id, $count)
     {
         $result = Up::database()
-            ->prepare('
-                SELECT item.id AS id, item.name AS name, price,    retailprice, weight, count, image, vat AS vat
+            ->prepare(
+                'SELECT item.id AS id, item.name AS name, price,    retailprice, weight, count, image, vat AS vat
                 FROM item
                 LEFT JOIN (vat)
                 ON (vat_id = vat.id)
                 WHERE item.id = ?
-                LIMIT 1;
-            ')
+                LIMIT 1;'
+            )
             ->execute(array($id))
             ->fetchAll();
-        
+
         if ($count <= 0) {
             unset($this->items[$id]);
         } else {
@@ -133,12 +131,12 @@ class Cart
             }
         }
     }
-    
+
     /**
      * Ta bort artikel från varukorgen
      * @param $id integer Artikelns idnr
      */
-    function delete($id)
+    public function delete($id)
     {
         unset($this->items[$id]);
     }
@@ -147,21 +145,20 @@ class Cart
      * Töm hela varukorgen
      * @uses global $_SESSION
      */
-    function deleteAll()
+    public function deleteAll()
     {
         $this->items = array();
         unset($_SESSION['cart']);
     }
-    
+
     /**
      * Hämta totala antalet artiklar i varukorgen
      * @return integer Antalet artiklar
      */
-    function getCount()
+    public function getCount()
     {
         $count = 0;
-        foreach($this->items as $item)
-        {
+        foreach ($this->items as $item) {
             $count += $item->getCount();
         }
         return $count;
@@ -171,25 +168,23 @@ class Cart
      * Hämta totala totala kostnaden av varukorgen inkl. moms
      * @return integer Summa
      */
-    function getSumIncl()
+    public function getSumIncl()
     {
         $sum = 0;
-        foreach($this->items as $item)
-        {
+        foreach ($this->items as $item) {
             $sum += $item->getSumIncl();
         }
         return $sum;
     }
-    
+
     /**
      * Hämta totala totala konstnaden av varukorgen exkl. moms
      * @return integer Summa
      */
-    function getSumExcl()
+    public function getSumExcl()
     {
         $sum = 0;
-        foreach($this->items as $item)
-        {
+        foreach ($this->items as $item) {
             $sum += $item->getSumExcl();
         }
         return $sum;

@@ -28,35 +28,33 @@ class ShippingWeight extends AbstractShipping
         15000 => 280,
         20000 => 325
     );
-    
+
     /**
      * @var float Eventuell fast kostnad som adderas till den rörliga
      * @access private
      */
     private $fixedprice = 20;
-     
+
     /**
      * Beräkna frakten
      * Måste sätta $this->sum till fraktkostnaden
      */
-    function calculate()
+    public function calculate()
     {
         // Hämta totalvikten av varukorgens artiklar
         $weight = 0;
-        foreach ($this->cart->getItems() as $item)
-        {
+        foreach ($this->cart->getItems() as $item) {
             $weight += $item->getWeight() * $item->getCount();
         }
-        
+
         // Slå upp kostnad från prislistan
         $calc = 0;
-        foreach ($this->price as $aweight => $aprice)
-        {
+        foreach ($this->price as $aweight => $aprice) {
             if ($weight > $aweight) {
                 $calc = $aprice;
             }
         }
-        
+
         // Fraktkostnad = fast pris + frakt från prislista
         $this->sum = $this->fixedprice + $calc;
     }

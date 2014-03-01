@@ -22,13 +22,13 @@ class Payment
         $categories = Up::category()->getAll();
         
         echo Up::view()
-            ->set('title',         'Kassa')
-            ->set('cart',          Up::cart())
-            ->set('categories',    $categories)
+            ->set('title', 'Kassa')
+            ->set('cart', Up::cart())
+            ->set('categories', $categories)
             ->set('categorycount', count($categories))
-            ->set('ordersum',      $_SESSION['ordersum'])
-            ->set('orderno',       $_SESSION['orderno'])
-            ->set('content',       Up::view()->render('App/View/payment.php'))
+            ->set('ordersum', $_SESSION['ordersum'])
+            ->set('orderno', $_SESSION['orderno'])
+            ->set('content', Up::view()->render('App/View/payment.php'))
             ->render('App/View/layout.php');
     }
 }

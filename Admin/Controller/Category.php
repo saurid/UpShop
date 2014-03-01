@@ -21,13 +21,13 @@ class Category extends Base
     {
         $categories = Up::category()->getAll();
         echo Up::view()
-            ->set('title',         'Admin kategorier')
-            ->set('categories',    $categories)
+            ->set('title', 'Admin kategorier')
+            ->set('categories', $categories)
             ->set('categorycount', count($categories))
-            ->set('content',       Up::view()->render('Admin/View/categories.php'))
+            ->set('content', Up::view()->render('Admin/View/categories.php'))
             ->render('Admin/View/layout.php');
     }
-    
+
     /**
      * Lägg till kategori
      */
@@ -37,7 +37,7 @@ class Category extends Base
         header('Location: ' . Up::site_path() . '/Admin/Category');
         exit;
     }
-    
+
     /**
      * Ändra kategori
      * @param string Kategori Id
@@ -48,7 +48,7 @@ class Category extends Base
         header('Location: ' . Up::site_path() . '/Admin/Category');
         exit;
     }
-    
+
     /**
      * Radera kategori
      * @param string Kategori Id

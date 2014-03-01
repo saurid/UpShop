@@ -1,6 +1,6 @@
 <?php use UpMvc\Container as Up; ?>
 
-<?php if(!$user->isIn()): ?>
+<?php if (!$user->isIn()): ?>
     <h3>Logga in</h3>
 
     <form action="<?php echo Up::site_path() ?>/Admin/Login/login" method="post">

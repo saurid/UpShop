@@ -26,14 +26,14 @@ class Item extends Base
         $items = Up::item()->getAll($pagination->getSqlLimit());
 
         echo Up::view()
-            ->set('title',     'Admin artiklar')
-            ->set('items',     $items)
+            ->set('title', 'Admin artiklar')
+            ->set('items', $items)
             ->set('itemcount', $count)
-            ->set('nav',       $pagination->getNav())
-            ->set('content',   Up::view()->render('Admin/View/items.php'))
+            ->set('nav', $pagination->getNav())
+            ->set('content', Up::view()->render('Admin/View/items.php'))
             ->render('Admin/View/layout.php');
     }
-    
+
     /**
      * Lägg till artikel
      */
@@ -46,10 +46,10 @@ class Item extends Base
         }
 
         echo Up::view()
-            ->set('title',      'Admin lägg till artikel')
+            ->set('title', 'Admin lägg till artikel')
             ->set('categories', Up::category()->getAll())
-            ->set('vat',        Up::vat()->getAll())
-            ->set('content',    Up::view()->render('Admin/View/iteminsert.php'))
+            ->set('vat', Up::vat()->getAll())
+            ->set('content', Up::view()->render('Admin/View/iteminsert.php'))
             ->render('Admin/View/layout.php');
     }
 
@@ -64,18 +64,18 @@ class Item extends Base
             header('Location: ' . Up::site_path() . '/Admin/Item/update/' . $id);
             exit;
         }
-        
+
         $items = Up::item()->getById($id);
         echo Up::view()
-            ->set('title',      'Admin artiklar')
-            ->set('items',      $items)
-            ->set('itemcount',  count($items))
+            ->set('title', 'Admin artiklar')
+            ->set('items', $items)
+            ->set('itemcount', count($items))
             ->set('categories', Up::category()->getAll())
-            ->set('vat',        Up::vat()->getAll())
-            ->set('content',    Up::view()->render('Admin/View/itemupdate.php'))
+            ->set('vat', Up::vat()->getAll())
+            ->set('content', Up::view()->render('Admin/View/itemupdate.php'))
             ->render('Admin/View/layout.php');
     }
-    
+
     /**
      * Radera artikel
      * @param string Artikel Id

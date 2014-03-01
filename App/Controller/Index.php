@@ -19,22 +19,22 @@ class Index
      */
     public function index()
     {
-        Up::set('item',     new \App\Model\Item());
+        Up::set('item', new \App\Model\Item());
         Up::set('category', new \App\Model\Category());
-        Up::set('cart',     new \App\Model\Cart());
+        Up::set('cart', new \App\Model\Cart());
         
         $items      = Up::item()->getLatest();
         $categories = Up::category()->getAll();
         
         echo Up::view()
-            ->set('title',         'Hem')
-            ->set('cart',          Up::cart())
-            ->set('categories',    $categories)
+            ->set('title', 'Hem')
+            ->set('cart', Up::cart())
+            ->set('categories', $categories)
             ->set('categorycount', count($categories))
-            ->set('category',      'Nya produkter')
-            ->set('items',         $items)
-            ->set('itemcount',     count($items))
-            ->set('content',       Up::view()->render('App/View/items.php'))
+            ->set('category', 'Nya produkter')
+            ->set('items', $items)
+            ->set('itemcount', count($items))
+            ->set('content', Up::view()->render('App/View/items.php'))
             ->render('App/View/layout.php');
     }
 }

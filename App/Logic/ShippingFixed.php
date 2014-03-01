@@ -15,8 +15,8 @@ class ShippingFixed extends AbstractShipping
      * Beräkna fraktkostnad
      * Måste sätta $this->sum till fraktkostnaden
      */
-    function calculate()
-    {    
+    public function calculate()
+    {
         $this->sum = $this->fixedprice;
     }
 }

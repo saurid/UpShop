@@ -21,17 +21,17 @@ class Category
     public function getAll()
     {
         return Up::database()
-            ->prepare('
-                SELECT category.id, category.name, COUNT(category_id) as count
+            ->prepare(
+                'SELECT category.id, category.name, COUNT(category_id) as count
                 FROM category
                 LEFT JOIN item ON (category_id = category.id)
                 GROUP BY category.id
-                ORDER BY category.name ASC
-            ')
+                ORDER BY category.name ASC'
+            )
             ->execute()
             ->fetchAll();
     }
-    
+
     /**
      * Hämta kategorinamn med id
      * @param integer Kategori Id
@@ -44,7 +44,7 @@ class Category
             ->execute(array(':id' => $id))
             ->fetchAll();
     }
-    
+
     /**
      * Lägg till kategori
      * @param string Kategorinamn
@@ -55,7 +55,7 @@ class Category
             ->prepare('INSERT INTO category (name) VALUES (:name)')
             ->execute(array(':name' => $name));
     }
-    
+
     /**
      * Radera kategori
      * @param integer Kategori Id
@@ -66,7 +66,7 @@ class Category
             ->prepare('DELETE FROM category WHERE id = (:id)')
             ->execute(array(':id' => $id));
     }
-    
+
     /**
      * Ändra på befintlig kategori
      * @param integer Kategori Id

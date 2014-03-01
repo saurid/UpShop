@@ -33,7 +33,7 @@ abstract class AbstractShipping
      * Konstruktor
      * @param object $cart Varukorgobjekt
      */
-    function __construct($cart)
+    public function __construct($cart)
     {
         $this->cart = $cart;
         $this->calculate();
@@ -43,22 +43,22 @@ abstract class AbstractShipping
      * Beräkna fraktkostnad
      * @abstract
      */
-    abstract function calculate();
-    
+    abstract public function calculate();
+
     /**
      * Hämta fraktkostnad inkl. moms
      * @return float Summa
      */
-    function getIncl()
+    public function getIncl()
     {
         return $this->sum;
     }
-    
+
     /**
      * Hämta fraktkostnad exkl. moms
      * @return float Summa
      */
-    function getExcl()
+    public function getExcl()
     {
         return $this->sum * (1/(1*((100+ $this->vat )/100)));
     }

@@ -4,7 +4,7 @@
 <head>
     <title><?php _e($title) ?> | <?php _e(Up::site_name()) ?></title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Up::site_path() ?>/App/View/format.css" />    
+    <link rel="stylesheet" type="text/css" href="<?php echo Up::site_path() ?>/App/View/format.css" />
 </head>
 <body>
 

@@ -36,8 +36,7 @@ function isLength($string, $length)
 {
     if (strlen($string) < $length) {
         return false;
-    }
-    else {
+    } else {
         return true;
     }
 }
@@ -60,10 +59,9 @@ function isNumeric($string)
  */
 function isInteger($string)
 {
-    if(trim(intval($string)) == $string) {
+    if (trim(intval($string)) == $string) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }

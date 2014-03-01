@@ -23,7 +23,7 @@
                 <option value="<?php echo $row['id'] ?>" <?php echo $selected ?>><?php _e($row['name']) ?></option>
             <?php endforeach ?>
         </select>
-        
+
         <p><input type="submit" name="submit" value="spara ändringar" /></p>
     </form>
 <?php endforeach ?>

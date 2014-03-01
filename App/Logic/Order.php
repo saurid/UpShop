@@ -30,13 +30,13 @@ class Order
      * @access private
      */
     private $number;
-    
+
     /**
      * Konstruktor
      * @param App\Model\Cart object Varukorgobjekt
      * @param App\Shipping object Fraktobjekt
      */
-    function __construct(Model\Cart $cart, AbstractShipping $shipping)
+    public function __construct(Model\Cart $cart, AbstractShipping $shipping)
     {
         $this->cart = $cart;
         $this->shipping = $shipping;
@@ -44,34 +44,34 @@ class Order
             $this->number = $_SESSION['orderno'];
         }
     }
-    
+
     /**
      * Hämta varukorgens totala summa inkl. moms
      * @return float Summa
      */
-    function getSumIncl()
+    public function getSumIncl()
     {
         $ordertotal = $this->cart->getSumIncl() + $this->shipping->getIncl();
-        if(count($this->cart->getItems()) > 0) {
+        if (count($this->cart->getItems()) > 0) {
             $_SESSION['ordersum'] = $ordertotal;
         }
         return $ordertotal;
     }
-    
+
     /**
      * Hämta varukorgens totala summa exkl. moms
      * @return float Summa
      */
-    function getSumExcl()
+    public function getSumExcl()
     {
         return $this->cart->getSumExcl() + $this->shipping->getExcl();
     }
-    
+
     /**
      * Skapa ordernummer
      * @return string Ordernummer
      */
-    function createNumber()
+    public function createNumber()
     {
         $microtime = explode(' ', microtime());
         return date("His", $microtime[1]) . '-' . substr($microtime[0], 2, 5);
@@ -81,7 +81,7 @@ class Order
      * Sätt ordernummer
      * @uses global @_SESSION
      */
-    function setNumber()
+    public function setNumber()
     {
         $no = $this->createNumber();
         $_SESSION['orderno'] = $no;
@@ -92,7 +92,7 @@ class Order
      * Hämta ordernummer
      * @return string Ordernummer
      */
-    function getNumber()
+    public function getNumber()
     {
         return $this->number;
     }

@@ -20,8 +20,8 @@ class Base
     public function __construct()
     {
         Up::view()
-            ->set('user',    Up::user())
+            ->set('user', Up::user())
             ->set('request', Up::request())
-            ->set('error',   Up::error());
+            ->set('error', Up::error());
     }
 }
